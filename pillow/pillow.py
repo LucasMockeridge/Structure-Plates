@@ -1,9 +1,11 @@
+# Code to generate synthetic images using Pillow alone
+
 from PIL import Image, ImageFont, ImageDraw, ImageOps, ImageFilter, ImageEnhance
 import numpy as np
 import cv2
 
-OUT_DIR  = "/home/lucas/Downloads/"
-FONT_DIR = "/home/lucas/Downloads/CharlesWright-Bold.otf"
+OUT_DIR  = "out/"
+FONT_DIR = "../CharlesWright-Bold.otf"
 
 letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 digits = ['0','1','2','3','4','5','6','7','8','9']
@@ -159,7 +161,7 @@ def main():
         im = addNoise(addBlur(adjustBrightness(im)))
         coords = newCoords(M, coords)
         if checkCoords(coords):
-            file = f"{OUT_DIR}/synimg_{i}"
+            file = f"{OUT_DIR}/eng_{i}"
             #writeCoords(file, coords)
             #writeGround(file, ground)
             im.save(file + ".tif")

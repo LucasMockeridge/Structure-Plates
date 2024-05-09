@@ -1,3 +1,5 @@
+# Code to evaluate Tesseract
+
 import cv2 
 import pytesseract
 import os
@@ -5,8 +7,8 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
-GT_DIR   = "/home/lucas/Documents/groundtruth.csv"
-DATA_DIR = "/home/lucas/Documents/data/"
+GT_DIR   = "obc/groundtruth.csv"
+DATA_DIR = "obc/data/"
 
 def levenshtein(xs, ys):
 
@@ -68,6 +70,7 @@ def main():
         im2 = 255 - ms
         final = cv2.GaussianBlur(im2,(5,5), 0)
         out = pytesseract.image_to_string(Image.fromarray(final), config="--psm 6 -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        # out1 = pytesseract.image_to_string(Image.fromarray(final), lang="impact", config="--tessdata-dir /home/lucas/Documents/models --psm 6 -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
         t = truth[file].replace('\\n','\n')
         avg += cer(out, t)
     print(f"Accuracy: {(1 - (avg / len(truth))) * 100}%")
